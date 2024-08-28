@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const {user, account} = require("../Databases/db");
+const { user, account } = require("../Databases/db");
 const userRouter = Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
@@ -39,15 +39,19 @@ userRouter.post("/signup", inputValidation, async (req, res) => {
     // when an user gets updated in the DB, we'll initialize a range of money from 1-10000 to that user
     const userId = response._id;
     await account.create({
-        userId,
-        balance : Math.floor(1 + Math.random() * 10000)
-    })
+      userId,
+      balance: Math.floor(1 + Math.random() * 10000),
+    });
 
-    if (response)
+    if (response) {
+      const token = jwt.sign(
+        { usrename: req.headers.uname, userId: userId },
+        JWT_SECRET
+      );
       res.status(200).json({
-        message: "The user is created successfully",
+        token: token,
       });
-    else {
+    } else {
       res.status(411).json({
         message: "There is some issue in creating the user",
       });
@@ -69,7 +73,10 @@ userRouter.post("/signin", async (req, res) => {
     });
 
     if (response) {
-      const token = jwt.sign(uname, JWT_SECRET);
+      const token = jwt.sign(
+        { username: uname, userId: response._id },
+        JWT_SECRET
+      );
       res.status(200).json({
         token: token,
       });
@@ -94,7 +101,7 @@ userRouter.post("/updateUser", authMiddleware, async (req, res) => {
     lastname: updateFields.lname,
     password: updateFields.pwd,
   });
-  console.log(uname)
+
   if (!inputCheck.success) {
     res.status(411).json({
       message: "There is some issue in the inputs of the fields",
@@ -113,7 +120,6 @@ userRouter.post("/updateUser", authMiddleware, async (req, res) => {
       }
     );
 
-    console.log(updateStatus)
     if (updateStatus) {
       res.status(200).json({
         message: "Updated Successfully",

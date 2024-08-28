@@ -9,6 +9,7 @@ const authMiddleware = (req, res, next) => {
 
     if(decode){
         req.headers.username = decode;
+        req.userId = decode.userId; 
         next();
     }
     else{
