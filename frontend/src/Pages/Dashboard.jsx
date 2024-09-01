@@ -2,7 +2,7 @@ import { useState } from "react";
 import DashboardHeader from "../components/DashboardHeader";
 
 const Dashboard = () => {
-  const [users, setUsers] = useState([
+  const [users, ] = useState([
     {
       id: 1,
       name: "User1",
