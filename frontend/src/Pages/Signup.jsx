@@ -13,7 +13,7 @@ const Signup = () => {
           <SignHeader label="Sign up" />
           <SignText text="Enter your information to create an account" />
         </div>
-        <div className="w-full flex flex-col mt-[1rem] md:mt-[2rem] gap-[1.3rem]">
+        <div className="w-full flex flex-col mt-[1rem] gap-[0.5rem]">
           <LabelInputs label="First Name" placeholder="Debashis" />
           <LabelInputs label="Last Name" placeholder="Garai" />
           <LabelInputs label="Email" placeholder="debag18@example.com" />

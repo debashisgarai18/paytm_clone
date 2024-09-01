@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const LabelInputs = ({ label, placeholder }) => {
   return (
-    <div className="w-full flex flex-col gap-[0.5rem] md:gap-[0.75rem]">
+    <div className="w-full flex flex-col gap-[0.5rem]">
       <label className="font-semibold text-xl md:text-2xl">{label}</label>
       <input
         type="text"

@@ -14,7 +14,7 @@ const Signin = () => {
           <SignText text="Enter your information to create an account" />
         </div>
 
-        <div className="w-full flex flex-col mt-[1rem] md:mt-[2rem] gap-[1.3rem]">
+        <div className="w-full flex flex-col mt-[1rem] md:mt-[1rem] gap-[1.3rem]">
           <LabelInputs label="Email" placeholder="Eg. debag18@example.com" />
           <PasswordField />
           <SignButton ButtonText="sign in" />
