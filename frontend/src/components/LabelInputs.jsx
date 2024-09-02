@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const LabelInputs = ({ label, placeholder }) => {
+const LabelInputs = ({ label, placeholder, onChange }) => {
   return (
     <div className="w-full flex flex-col gap-[0.5rem]">
       <label className="font-semibold text-xl md:text-2xl">{label}</label>
@@ -8,6 +8,7 @@ const LabelInputs = ({ label, placeholder }) => {
         type="text"
         className="text-xl md:text-2xl font-medium py-[0.75rem] focus:outline-none border-[1px] px-[1rem] border-gray-400 rounded-xl"
         placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
@@ -15,7 +16,8 @@ const LabelInputs = ({ label, placeholder }) => {
 
 LabelInputs.propTypes = {
   label: PropTypes.string.isRequired,
-  placeholder : PropTypes.string.isRequired
+  placeholder : PropTypes.string.isRequired,
+  onChange : PropTypes.func
 };
 
 export default LabelInputs;

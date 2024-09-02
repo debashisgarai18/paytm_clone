@@ -29,10 +29,11 @@ const Dashboard = () => {
       avatar: "U5",
     },
   ]);
-
+  const [showPP, setShowPP] = useState(false); 
   return (
-    <div className="min-h-screen w-full bg-[#212121]">
-      <DashboardHeader name="Debashis" avatar="D" />
+    <div className="min-h-screen w-full bg-[#212121] relative">
+      <DashboardHeader name="Debashis" avatar="D" onClick = {setShowPP}/>
+      {showPP && <div className="bg-gray-300 p-2 w-fit h-fit absolute right-5 text-xl font-medium top-[4.2rem] rounded-xl shadow-lg px-[1rem] duration-300 transition-all ease-in-out">Sign Out</div>}
       <div className="w-full py-[1rem] font-medium px-[2rem] text-4xl md:text-5xl text-white">
         Your Balance: <span className="font-bold">$5000</span>
       </div>
@@ -43,7 +44,7 @@ const Dashboard = () => {
         <input
           type="text"
           placeholder="Search Users..."
-          className="w-full focus:outline-none text-xl md:text-2xl rounded-md border-[1px] border-gray-400 py-[0.5rem] px-[1rem]"
+          className="w-full focus:outline-none text-xl md:text-2xl rounded-xl border-[1px] border-gray-400 py-[0.5rem] px-[1rem]"
         />
       </div>
       <div className="w-full flex flex-col gap-[0.5rem] py-[1rem]">
