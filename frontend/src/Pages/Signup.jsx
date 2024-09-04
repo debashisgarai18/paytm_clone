@@ -6,6 +6,7 @@ import SignButton from "../components/SignButton";
 import SignHeader from "../components/SignHeader";
 import SignText from "../components/SignText";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [fname, setFname] = useState("");
@@ -13,6 +14,15 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
 
+  const nav = useNavigate();
+
+  // value clean-up function
+  const cleanup = () => {
+    setFname("");
+    setLname("");
+    setEmail("");
+    setPwd("");
+  };
 
   // function to handle click for the Sign Up button
   const handleClick = async () => {
@@ -23,8 +33,20 @@ const Signup = () => {
       pwd,
     };
 
-    const response = await axios.post('http://localhost:3000/api/v1/user/signup', data);
-    localStorage.setItem('token', response.data.token)
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/signup",
+        data
+      );
+      localStorage.setItem("token", response.data.token);
+      cleanup();
+      nav("/dashboard");
+    } catch (err) {
+      console.log(err);
+      alert(err || "An error ocurred");
+      cleanup();
+      return;
+    }
   };
 
   return (
@@ -50,7 +72,7 @@ const Signup = () => {
             placeholder="debag18@example.com"
             onChange={setEmail}
           />
-          <PasswordField onChange={setPwd} />
+          <PasswordField onChange={setPwd} value={pwd}/>
           <SignButton ButtonText="sign up" onClick={handleClick} />
         </div>
         <SignBottomText

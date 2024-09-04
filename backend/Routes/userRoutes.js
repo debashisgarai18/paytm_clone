@@ -45,7 +45,7 @@ userRouter.post("/signup", inputValidation, async (req, res) => {
 
     if (response) {
       const token = jwt.sign(
-        { usrename: req.headers.uname, userId: userId },
+        { username: req.headers.uname, userId: userId },
         JWT_SECRET
       );
       res.status(200).json({
@@ -91,6 +91,34 @@ userRouter.post("/signin", async (req, res) => {
     });
   }
 });
+
+userRouter.get("/getUsers", authMiddleware, async (req, res) => {
+  const userId = req.userId;
+  const uname = req.username;
+
+
+  const response = await user.findOne({
+    username : uname
+  })
+
+  const acc = await account.findOne({
+    userId
+  })
+
+  const userData = await user.find({});
+  if(userData){
+    res.status(200).json({
+      users : userData,
+      owner : response.firstName,
+      balance : acc.balance
+    })
+  }
+  else{
+    res.status(404).json({
+      message : "Can't get the users!!"
+    })
+  }
+})
 
 userRouter.post("/updateUser", authMiddleware, async (req, res) => {
   const uname = req.headers.username;
