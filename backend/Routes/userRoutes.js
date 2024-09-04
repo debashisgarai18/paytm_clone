@@ -109,6 +109,7 @@ userRouter.get("/getUsers", authMiddleware, async (req, res) => {
   if(userData){
     res.status(200).json({
       users : userData,
+      ownerId : userId,
       owner : response.firstName,
       balance : acc.balance
     })
